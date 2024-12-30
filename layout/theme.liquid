@@ -1,6 +1,14 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
+<!-- BEAE-GLOBAL-FONT --> 
+{% capture the_snippet_global_font %}{% include 'beae-global-font' %}{% endcapture %} {% unless the_snippet_global_font contains 'Liquid error' %} {{ the_snippet_global_font }} {% endunless %} 
+ <!-- END BEAE-GLOBAL-FONT -->
+<!-- BEAE-HEADER --> 
+{%- if content_for_layout contains 'beae-builder' or request.design_mode -%}
+{%- render 'beae_header' -%}
+{%- endif -%}
+<!-- END BEAE-HEADER -->
     <!-- END BEAE-HEADER -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -281,7 +289,11 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
-  </head>
+  {% capture the_snippet_beae-global-theme-setting %}{% include 'beae-global-theme-setting' %}{% endcapture %}
+            {% unless the_snippet_beae-global-theme-setting contains 'Liquid error' %}
+                {{ the_snippet_beae-global-theme-setting }}
+            {% endunless %}
+</head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
@@ -355,5 +367,15 @@
           justify-content: center !important;
       }
     </style>
-  </body>
+  
+<!-- BEAE-FOOTER --> 
+{%- if content_for_layout contains 'beae-builder' -%}
+{%- render 'beae_footer' -%}
+{%- endif -%}
+<!-- END BEAE-FOOTER -->
+<!-- BEAE-ANALYTICS --> 
+{%- if content_for_layout contains 'beae-builder' -%}
+{%- render 'beae_analytic_helper' -%}
+{%- endif -%}
+<!-- END BEAE-ANALYTICS --></body>
 </html>
