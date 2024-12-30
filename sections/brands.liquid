@@ -1,0 +1,260 @@
+
+<style>
+    /*
+        General styles
+    */
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /*
+        Section styling
+    */
+    .brands-slider {
+        overflow: hidden;
+    }
+    
+    .brands-slider-list {
+        list-style: none;
+        display: flex;
+    }
+
+    .brands-slider-item {
+        flex-shrink: 0;
+    }
+
+    .brands-slider-item img {
+        transition: all .2s ease-out;
+    }
+
+    .brands-slider-item a:hover img {
+        opacity: .7;
+    }
+
+    /*
+        Styles based on settings
+    */
+    #brands-slider-{{ section.id }} {
+        {% unless section.settings.bg_color == 'rgba(0,0,0,0)' %}
+            background-color: {{ section.settings.bg_color }};
+        {% endunless %}
+        padding-top: {{ section.settings.pt }}rem;
+        padding-bottom: {{ section.settings.pb }}rem;
+        margin-top: {{ section.settings.mt }}rem;
+        margin-bottom: {{ section.settings.mb }}rem;
+    }
+    #brands-slider-{{ section.id }} .brands-slider-item {
+        padding-left: {{ section.settings.gap }}px;
+        padding-right: {{ section.settings.gap }}px;
+    }
+</style>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const initSlider = () => {
+            const list = document.querySelector('#brands-slider-{{ section.id }} .brands-slider-list')
+            const listLength = list.querySelectorAll('.brands-slider-item').length
+            list.insertAdjacentHTML('beforeend', list.innerHTML)
+            list.insertAdjacentHTML('beforeend', list.innerHTML)
+
+            let translateValue = 0
+
+            document.querySelectorAll('#brands-slider-{{ section.id }} .brands-slider-item').forEach((item, index) => {
+                if (index >= listLength) {
+                    item.setAttribute('aria-hidden', 'true')
+                }
+                translateValue = item.clientWidth + translateValue
+            })
+
+            translateValue = translateValue / 4
+
+           const animation = list.animate([
+                { transform: 'translateX(0)' },
+                { transform: `translateX(-${translateValue}px)` }
+            ], {
+                duration: {{ section.settings.animation_duration | times: 1000 }},
+                iterations: Infinity
+            });
+
+            list.addEventListener("mouseover", () => {
+                animation.pause()
+            })
+            list.addEventListener("mouseleave", () => {
+                animation.play()
+            })
+        }
+        initSlider()
+        
+        document.addEventListener('shopify:section:load', (e) => {
+            if (e.target.querySelector('#brands-slider-{{ section.id }}')) {
+                initSlider()
+            }
+        })
+    })
+</script>
+  
+        
+<section id="brands-slider-{{ section.id }}" class="brands-slider">
+    <ul class="brands-slider-list" aria-label="{{ section.settings.list_name }}">
+        {% for block in section.blocks %}
+            <li class="brands-slider-item">
+                {% unless block.settings.url == blank %}
+                    <a href="{{ block.settings.url }}">
+                {% endunless %}
+            {% if block.settings.svg == blank %}
+                {% assign img_height_x2 = section.settings.img_height | times: 2 %}
+                <img
+                    class="img-fluid"
+                    src="{{ block.settings.img | image_url: height: img_height_x2 }}"
+                    alt="{{ block.settings.img.alt }}"
+                    width="{{ section.settings.img_height | times: block.settings.img.aspect_ratio | round }}"
+                    height="{{ section.settings.img_height }}"
+                    loading="lazy" >
+              {% else %}
+                  {{ block.settings.svg }}
+              {% endif %}
+            {% unless block.settings.url == blank %}
+                </a>
+            {% endunless %}
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
+{% schema %}
+{
+    "name": "Brands Slider",
+  "tag": "section",
+   "class": "section",
+   "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+    "settings": [
+        {
+            "type": "header",
+            "content": "General"
+        },
+        {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background color"
+        },
+        {
+            "type": "text",
+            "id": "img_height",
+            "label": "Image height (px)",
+            "default": "70",
+            "info": "NOTE. Images will be cropped based to their aspect ratio."
+        },
+        {
+            "type": "text",
+            "id": "list_name",
+            "label": "List name",
+            "default": "Brands list",
+            "info": "Used for accessibility purposes"
+        },
+        {
+            "type": "header",
+            "content": "Effect"
+        },
+        {
+            "type": "range",
+            "id": "animation_duration",
+            "label": "Animation duration",
+            "min": 0,
+            "max": 30,
+            "step": 1,
+            "default": 10,
+            "unit": "sec",
+            "info": "NOTE: Please click the \"Save\" button in order to view the changes."
+        },
+        {
+            "type": "header",
+            "content": "Gap",
+            "info": "Based on 'rem' values [Learn more](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)"
+        },
+        {
+            "type": "range",
+            "id": "gap",
+            "label": "Gap (px)",
+            "info": "Space between images",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 16
+        },
+        {
+            "type": "header",
+            "content": "Spacing",
+            "info": "Based on 'rem' values [Learn more](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)"
+        },
+        {
+            "type": "range",
+            "id": "pt",
+            "label": "Padding top",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 1
+        },
+        {
+            "type": "range",
+            "id": "pb",
+            "label": "Padding bottom",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 1
+        },
+        {
+            "type": "range",
+            "id": "mt",
+            "label": "Margin top",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mb",
+            "label": "Margin bottom",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 0
+        }
+    ],
+    "blocks": [
+        {
+            "type": "block",
+            "name": "Block",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "img",
+                    "label": "Image"
+                },
+                {
+                    "type": "html",
+                    "id": "svg",
+                    "label": "svg",
+                    "info": "past svg code here"
+                },
+                {
+                    "type": "url",
+                    "id": "url",
+                    "label": "URL"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Brands Slider",
+            "category": "Images"
+        }
+    ]
+}
+{% endschema %}

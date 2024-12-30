@@ -1,0 +1,134 @@
+<section class="MarqueeSection">
+  <div class="container" id="MarqueeSection">
+    <div class="default-content-container flex items-center">
+      <div class="default-content-container-inner marquee-wrapper relative overflow-hidden inline-block" style="background:{{section.settings.bg_color}};">
+        <div class="marquee" style="animation-duration: 20s;">
+          {% for block in section.blocks %}
+            <div class="text-slider-box" style="display: inline-block;">
+              <div class="moving-text">
+                <h2 style="color:{{ block.settings.text_color }}; font-size:{{ section.settings.font_size }}px;">
+                  <a href="{{ block.settings.link_url }}" style="color: inherit; text-decoration: none;">
+                    {{ block.settings.title }}
+                  </a>
+                </h2>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Moving Text",
+  "class": "moving-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF",
+      "info": "Background Color"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font Size",
+      "default": 24,
+      "min": 10,
+      "max": 46,
+      "step": 2
+    }
+  ],
+  "max_blocks": 24,
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Moving Text Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Add Single Sentence"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#000",
+          "info": "Text Color"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Moving Text",
+      "name": "Moving Text"
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+.MarqueeSection {
+  position: relative;
+}
+
+.marquee-wrapper {
+  white-space: nowrap;
+  position: inherit;
+  background: #FFFFFF;
+}
+
+.marquee {
+  position: relative;
+  transform: translateZ(0);
+  animation-name: marquee;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.marquee-wrapper:hover .marquee {
+  animation-play-state: paused !important;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.text-slider-box {
+  position: relative;
+  transition: all 2s ease;
+}
+
+.moving-text h2 {
+  text-align: center;
+  font-weight: normal;
+  letter-spacing: 2.5px;
+}
+
+.MarqueeSection .marquee a {
+  display: inline-block;
+  white-space: nowrap;
+  text-decoration: none;
+  margin: 7px;
+  pointer-events: auto; /* Allow links to be clickable */
+}
+
+{% endstylesheet %}

@@ -1,0 +1,22 @@
+.related-products {
+  display: block;
+}
+
+.related-products__heading {
+  margin: 0 0 3rem;
+}
+/* Center the heading on all devices by default */
+.related-products__heading {
+  text-align: center !important;
+}
+
+/* Media query for tablets */
+@media (max-width: 768px) { /* You can adjust the max-width value to target different tablet screen sizes */
+  .related-products__heading {
+    text-align: center !important;
+  }
+}
+.title-wrapper--no-top-margin {
+
+  text-align: center !important;
+}
