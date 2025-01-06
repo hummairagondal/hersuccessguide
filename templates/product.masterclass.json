@@ -53,12 +53,12 @@
           "type": "icon-with-text",
           "settings": {
             "layout": "horizontal",
-            "icon_1": "star",
-            "heading_1": "Free Guides",
-            "icon_2": "lightning_bolt",
-            "heading_2": "Instant Access",
-            "icon_3": "heart",
-            "heading_3": "Made with Love"
+            "icon_1": "clipboard",
+            "heading_1": "Workbook",
+            "icon_2": "silhouette",
+            "heading_2": "Host Online",
+            "icon_3": "check_mark",
+            "heading_3": "Access For Life"
           }
         }
       },
@@ -103,8 +103,8 @@
         "template--14998138814533__2b500906-d59c-4268-bc31-b5d385ace7c4-column-2": {
           "type": "column",
           "settings": {
-            "title": "DOWNLOAD",
-            "text": "<p>Get instant access to your purchase via a direct link to a downloadable PDF file.</p>",
+            "title": "CHECK YOUR EMAIL",
+            "text": "<p>You'll receive an email with link to the event up to a two days prior to the event. </p>",
             "link_label": "",
             "link": ""
           }
@@ -112,8 +112,8 @@
         "column_hAY9eY": {
           "type": "column",
           "settings": {
-            "title": "FREE E-book Guides",
-            "text": "<p>The Free guides are for personal use only. As any copyright material, they are not for reproduction or resell. </p>",
+            "title": "FREE Workbook",
+            "text": "<p>You'll also receive a workbook. Please print this workbook to take note during the class.</p>",
             "link_label": "",
             "link": ""
           }
