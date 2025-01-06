@@ -23,10 +23,6 @@
           "type": "title",
           "settings": {}
         },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -38,6 +34,10 @@
           "disabled": true,
           "settings": {}
         },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -45,8 +45,8 @@
             "show_gift_card_recipient": false
           }
         },
-        "description": {
-          "type": "description",
+        "price": {
+          "type": "price",
           "settings": {}
         },
         "icon_with_text_bahwKk": {
@@ -65,11 +65,11 @@
       "block_order": [
         "vendor",
         "title",
-        "price",
         "variant_picker",
         "quantity_selector",
-        "buy_buttons",
         "description",
+        "buy_buttons",
+        "price",
         "icon_with_text_bahwKk"
       ],
       "settings": {
