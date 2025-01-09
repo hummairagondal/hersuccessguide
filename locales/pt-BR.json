@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -383,7 +392,13 @@
       "be1182278043_html": "Adicionado ao carrinho",
       "be1538394658_html": "Vendido",
       "be1427617666_html": "Adicionado ao carrinho com sucesso",
-      "be719299147_html": "Escolha opções"
+      "be719299147_html": "Escolha opções",
+      "be427520332_html": "Salvar {venda}",
+      "be1538363906_html": "Vendido",
+      "be368228441_html": "Economize {venda}%",
+      "be2569319_html": "Oferta",
+      "be42255992_html": "Mostrar mais",
+      "be42216636_html": "Mostrar menos"
     }
   },
   "localization": {
